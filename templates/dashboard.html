@@ -1,0 +1,17 @@
+{% extends 'base.html' %}{% block title %}Dashboard · JobTracker{% endblock %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">Overview</p><h1>Application dashboard</h1><p>See your pipeline, priorities, and recent activity at a glance.</p></div><a class="button primary" href="{{ url_for('application_form') }}">+ Add application</a></div>
+<section class="stat-grid">
+  <article class="stat-card"><span>Companies</span><strong>{{ stats.companies }}</strong><a href="{{ url_for('companies') }}">View companies →</a></article>
+  <article class="stat-card"><span>Open jobs</span><strong>{{ stats.jobs }}</strong><a href="{{ url_for('jobs') }}">View jobs →</a></article>
+  <article class="stat-card"><span>Applications</span><strong>{{ stats.applications }}</strong><a href="{{ url_for('applications') }}">View pipeline →</a></article>
+  <article class="stat-card accent"><span>Interviews / offers</span><strong>{{ stats.interviews }} / {{ stats.offers }}</strong><a href="{{ url_for('job_match') }}">Find matches →</a></article>
+</section>
+<div class="dashboard-grid">
+  <section class="panel"><div class="panel-header"><h2>Recent applications</h2><a href="{{ url_for('applications') }}">View all</a></div>
+    {% if recent %}<div class="activity-list">{% for item in recent %}<a href="{{ url_for('application_form', record_id=item.application_id) }}"><div><strong>{{ item.job_title }}</strong><span>{{ item.company_name }} · {{ item.application_date }}</span></div><span class="status {{ item.status|lower }}">{{ item.status }}</span></a>{% endfor %}</div>{% else %}<div class="empty">No applications yet. Add your first one.</div>{% endif %}
+  </section>
+  <section class="panel"><div class="panel-header"><h2>Pipeline</h2></div>{% if statuses %}<div class="pipeline">{% for item in statuses %}<div><span>{{ item.status }}</span><strong>{{ item.total }}</strong></div>{% endfor %}</div>{% else %}<div class="empty">Your pipeline will appear here.</div>{% endif %}</section>
+</div>
+{% endblock %}
+
