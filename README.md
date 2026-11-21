@@ -45,10 +45,26 @@ A Flask and MySQL web application for organizing companies, job opportunities, a
 3. Install dependencies:
 
    ```bash
-   pip install -r requirements.txt
+   python -m pip install -r requirements.txt
    ```
 
 4. Create the MySQL database. This recreates `job_tracker` and loads sample data:
+
+   **Windows PowerShell**
+
+   ```powershell
+   cmd /c "mysql -u root -p < schema.sql"
+   ```
+
+   If `mysql` is not on PATH, start it using its full installation path:
+
+   ```powershell
+   & "C:\Program Files\MySQL\MySQL Server 8.4\bin\mysql.exe" -u root -p
+   ```
+
+   Then run `SOURCE C:/full/path/to/job-application-tracker/schema.sql;` at the `mysql>` prompt.
+
+   **macOS or Linux**
 
    ```bash
    mysql -u root -p < schema.sql
@@ -73,7 +89,7 @@ A Flask and MySQL web application for organizing companies, job opportunities, a
 6. Start the application:
 
    ```bash
-   flask --app app run --debug
+   python -m flask --app app run --debug
    ```
 
 7. Open `http://127.0.0.1:5000`.
